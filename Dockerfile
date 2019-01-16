@@ -1,4 +1,4 @@
-FROM jupyter/<notebook>:<version hash>
+FROM jupyter/tensorflow-notebook:87210526f381
 
 #Set the working directory
 WORKDIR /home/jovyan/
