@@ -11,13 +11,26 @@ from optparse import OptionParser
 from tqdm import tqdm
 
 BENIGN_SYSCALLS = [
-    'GUIEvent1',
-    'SLeepBiatch'
+    'NtCreateUserProcess',
+    'NtDrawText',
+    'NtDisplayString',
+    'NtOpenKeyEx',
+    'NtOpenFile',
+    'NtOpenTimer',
+    'NtQueryDirectoryFile',
+    'NtReadFile',
+    'NtWriteFile',
 ]
 
 MAL_SYSCALLS = [
     'RegCreateKeyEx',
     'RegSaveKeyEx',
+    'NtCreateProcessEx',
+    'NtCreateThreadEx',
+    'NtModifyBootEntry',
+    'NtSaveKeyEx',
+    'NtSetTimerEx',
+    'NtWriteFile',
 ]
 
 def choose_between_by_p(l1, l2, p, count):
@@ -30,7 +43,7 @@ def choose_between_by_p(l1, l2, p, count):
 
 
 def create_traces(numsamples, minlength, maxlength,
-                  benignp=0.7,
+                  benignp=0.9,
                   benigndir='/zfs/home/yacin/work/oreilly/hands-on-adversarial-machine-learning/data/01-monotonic-classifiers/benign-traces',
                   maldir='/zfs/home/yacin/work/oreilly/hands-on-adversarial-machine-learning/data/01-monotonic-classifiers/malicious-traces'):
     """
