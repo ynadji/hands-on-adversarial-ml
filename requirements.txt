@@ -1,1 +1,2 @@
 ## Please list additional packages with version numbers
+cleverhans==3.0.1
