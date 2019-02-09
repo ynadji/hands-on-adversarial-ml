@@ -1,3 +1,4 @@
 ## Please list additional packages with version numbers
 cleverhans==3.0.1
 joblib==0.13.1
+tldextract==2.2.0
