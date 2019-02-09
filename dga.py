@@ -1,6 +1,8 @@
 import math
 import pickle
 import string
+import fnmatch
+import os
 from collections import Counter
 
 import tldextract
@@ -8,6 +10,14 @@ import numpy as np
 from scipy.stats import describe
 
 ## Utils
+## utils
+def rwalk(directory, pattern):
+    """Recursively search "directory" for files that match the Unix shell-style
+        wildcard given by "pattern" (like '*.mp3'). Returns matches as a generator."""
+    for root, dirnames, filenames in os.walk(directory):
+        for filename in fnmatch.filter(filenames, pattern):
+            yield os.path.join(root, filename)
+
 def chunks(l, n, slide=None):
     """Yield successive n-sized chunks from l with a sliding window of slide
     indexes. Default value of slide has non-overlapping chunks."""
@@ -20,9 +30,16 @@ def H(s):
     return -sum(count/lns * math.log(count/lns, 2) for count in p.values())
 
 ## Classification stuff
-# Doing this is a higher priority than getting the spectral clustering working.
-def _load_ground_truth(dgapath='../data/dga'):
-    pass
+def _load_ground_truth(dgadir='../data/dga/ground-truth'):
+    def fixup(d):
+        return d.lower().strip()
+    classtodomains = {}
+    for path in rwalk(dgadir, '*.txt'):
+        with open(path) as f:
+            class_ = os.path.basename(os.path.dirname(path))
+            classtodomains[class_] = list(map(fixup, f.readlines()))
+
+    return classtodomains
 
 def _ngrams(domains, ns=[1, 2, 3, 4]):
     def stats(counter, n):
@@ -85,7 +102,14 @@ def _distinctchars(domains):
     return len(Counter(''.join(domains)))
 
 def vectorize(domains):
-    pass
+    features = []
+    features.extend(_ngrams(domains))
+    features.extend(_entropy(domains)[1])
+    features.extend(_len(domains))
+    features.extend(_levels(domains))
+    features.append(_tlds(domains))
+    features.append(_distinctchars(domains))
+    return features
 
 def train():
     pass
