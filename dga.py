@@ -3,14 +3,21 @@ import pickle
 import string
 import fnmatch
 import os
+import sys
 from collections import Counter
 
 import tldextract
 import numpy as np
 from scipy.stats import describe
+from tqdm import tqdm
+from sklearn.linear_model import LogisticRegression, Lasso
+from sklearn.model_selection import cross_val_score, cross_val_predict
+from sklearn.externals import joblib
+import pandas as pd
+import seaborn
+import matplotlib.pyplot as plt
 
 ## Utils
-## utils
 def rwalk(directory, pattern):
     """Recursively search "directory" for files that match the Unix shell-style
         wildcard given by "pattern" (like '*.mp3'). Returns matches as a generator."""
@@ -110,6 +117,43 @@ def vectorize(domains):
     features.append(_tlds(domains))
     features.append(_distinctchars(domains))
     return features
+
+def _build_ground_truth_dataframe(alpha=10, dgadir='../data/dga/ground-truth'):
+    X, y = [], []
+    for class_, domains in tqdm(_load_ground_truth(dgadir=dgadir).items(), desc='Classes', position=0):
+        if class_ in set(['murofet', 'suppobox', 'symmi', 'sisron', 'ranbyus', 'corebot', 'padcrypt', 'dircrypt', 'gozi', 'locky', 'pykspa', 'dnschanger']):
+            continue
+        for domain_chunks in chunks(domains, alpha):
+            features = vectorize(domain_chunks)
+            if len(features) != 134:
+                sys.stderr.write('Error with chunk from %s\n' % class_)
+                continue
+            X.append(features)
+            y.append(class_)
+
+    return np.array(X), np.array(y)
+
+def _heatmap(crosstab):
+    plt.clf()
+    p = seaborn.heatmap(crosstab, square=True)
+    plt.tight_layout()
+    plt.show()
+
+def _cv(X, y, k, name, clf, csvname, modeldir=None, terms=None, resultdir=None):
+    print('## %s' % name)
+    print('### Cross Validation')
+    print('`%s`' % str(cross_val_score(clf, X, y, cv=k)))
+    print('### CV Confusion Matrix')
+    y_pred = cross_val_predict(clf, X, y, cv=k)
+    print('```')
+    print(pd.crosstab(y, y_pred, rownames=['True'], colnames=['Predicted']))
+    print('```')
+
+    _heatmap(pd.crosstab(y, y_pred, rownames=['True'], colnames=['Predicted'],
+                         normalize='index'))
+
+    clf.fit(X, y)
+    return clf
 
 def train():
     pass
