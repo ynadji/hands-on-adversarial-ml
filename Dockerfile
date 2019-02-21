@@ -11,6 +11,7 @@ RUN pip install -r /home/jovyan/requirements.txt
 COPY notebooks /home/jovyan/notebooks
 COPY data /home/jovyan/data
 COPY solutions /home/jovyan/solutions
+COPY util /home/jovyan/util
 
 # Allow user to write to directory
 USER root
