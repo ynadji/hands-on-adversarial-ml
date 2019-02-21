@@ -93,7 +93,7 @@ class MNIST(Dataset):
     self.x_test = x_test.astype('float32')
     self.y_test = y_test.astype('float32')
 
-    print('running my version of the MNIST dataset booyakasha')
+    print('Using local MNIST dataset. This is a good thing!')
 
   def to_tensorflow(self, shuffle=4096):
     return (self.in_memory_dataset(self.x_train, self.y_train, shuffle),
