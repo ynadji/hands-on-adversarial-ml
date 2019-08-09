@@ -24,7 +24,7 @@ docker|docker-ce` is probably enough to get you going.
 1. `$ cd hands-on-adversarial-ml`
 1. `$ docker build -t advml .`
 1. `$ docker run -p 8888:8888 advml`
-1. Open your browser to the [http://localhost:8888](Jupyter Notebook) you just
+1. Open your browser to the [Jupyter Notebook](http://localhost:8888) you just
 built. If you're using `docker-machine`, `$ echo "http://$(docker-machine
 ip):8888"` will give you the correct URI.
 1. Let's SMASH some models!
