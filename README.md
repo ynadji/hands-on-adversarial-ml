@@ -20,8 +20,7 @@ likely need to get `docker-machine` up and running so jump to that section
 first. If you're on Linux, `$ sudo apt-get|yum|whatever install
 docker|docker-ce` is probably enough to get you going.
 
-TODO: Replace with public URL
-1. `$ git clone git@github.com:ynadji/hands-on-adversarial-ml.git`
+1. `$ git clone https://github.com/ynadji/hands-on-adversarial-ml.git`
 1. `$ cd hands-on-adversarial-ml`
 1. `$ docker build -t advml .`
 1. `$ docker run -p 8888:8888 advml`
@@ -32,12 +31,12 @@ ip):8888"` will give you the correct URI.
 
 ### `docker-machine`/Mac OS X Specific Instructions
 
-If you use `docker-machine`, or you don't know what that is and you're on OS X,
-follow the instructions below. `docker-machine` runs Linux in VirtualBox so you
-too can enjoy the smug misplaced sense of process isolation and smugly neglect
-continuous integration and JUST SHIP IT DINGUS.
+If you use `docker-machine` (or want to), follow the instructions below.
+`docker-machine` runs Linux in VirtualBox so you too can enjoy the smug
+misplaced sense of process isolation and smugly neglect continuous integration
+and JUST SHIP IT DINGUS.
 
-1. Install [Homebrew](link to homebrew shtuff)
+1. Install [Homebrew](https://brew.sh)
 1. `$ brew install docker-machine`
 1. `$ brew install docker`
 1. `$ docker-machine start default`
@@ -48,3 +47,10 @@ Jupyter once you've built the notebook
 
 After completed the above steps, you should be ready to clone and build the
 Docker image. Happy hacking!
+
+### OS X w/ Docker Desktop for Mac
+
+It appears there's a packaged application for this now, however, it seems it's
+still based on docker-machine/vbox/etc. My guess is after installation, the
+process should be similar to the `docker-machine` instructions above. Fingers
+crossed!
