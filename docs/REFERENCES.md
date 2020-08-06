@@ -1,7 +1,7 @@
 # References
 
 1. [Papernot et al. “SoK: Towards the Science of Security and Privacy in Machine Learning”](https://arxiv.org/pdf/1611.03814.pdf)
-** References numbered with \# in the slides correspond to the citation numbers from this paper.
+    1.1 References numbered with \# in the slides correspond to the citation numbers from this paper.
 1. [Chen et al. “Practical Attacks Against Graph-based Clustering”](https://arxiv.org/pdf/1708.09056.pdf)
 1. [Meng et al. “MagNet: a Two-Pronged Defense against Adversarial Examples”](https://arxiv.org/pdf/1705.09064.pdf)
 1. [Gu et al. “BadNets: Identifying Vulnerabilities in the Machine Learning Model Supply Chain”](https://arxiv.org/pdf/1708.06733.pdf) [code](https://github.com/Kooscii/BadNets/)
