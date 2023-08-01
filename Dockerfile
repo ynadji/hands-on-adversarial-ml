@@ -3,6 +3,12 @@ FROM jupyter/tensorflow-notebook:87210526f381
 #Set the working directory
 WORKDIR /home/jovyan/
 
+# cleverhans -> tensorflow-probability doesn't specify a version for dm-tree
+# and newer versions depend on cmake 3.12 but the rest of the docker image is
+# old enough this cascades into another series of problems. just install a
+# version around the same time frame so the dependency is handled.
+RUN pip install dm-tree==0.1.2
+
 # Modules
 COPY requirements.txt /home/jovyan/requirements.txt
 RUN pip install -r /home/jovyan/requirements.txt
