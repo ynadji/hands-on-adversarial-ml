@@ -114,7 +114,7 @@ terminado==0.8.1
 testpath==0.4.2
 tldextract==2.2.0
 toolz==0.9.0
-tornado==5.1.1
+tornado==6.3.3
 tqdm==4.31.1
 traitlets==4.3.2
 urllib3==1.24.1
