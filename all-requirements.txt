@@ -8,7 +8,7 @@ backcall==0.1.0
 beautifulsoup4==4.6.3
 bleach==3.0.2
 bokeh==0.13.0
-certifi==2018.11.29
+certifi==2023.7.22
 cffi==1.11.5
 chardet==3.0.4
 cleverhans==3.0.1
